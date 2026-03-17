@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    </head>
+<body>
+    <form action="" name="form1" id="form1">
+        <input type="text" name="nombre1" id="nombre1">
+        <button type="button"onclick="a()">INGRESA NOMBRE</button>
+    </form>
+    
+    <script>
+        let miArray = []
+        function a() {
+            let valorInput = document.getElementById('nombre1').value;
+            miArray.push(valorInput);
+            console.log("NOMBRE:",miArray);
+        }
+    </script>
+
+</body>
+</html>
+

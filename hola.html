@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Resistencias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        #resultado {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Resistencias Serie y Paralelo</h2>
+
+    <label>Configuración del circuito:</label>
+    <select id="configuracion">
+        <option value="serie">Serie</option>
+        <option value="paralelo">Paralelo</option>
+    </select>
+
+    <label>Número de resistencias:</label>
+    <input type="number" id="numResistencias" min="1">
+
+    <button onclick="crearCampos()">Ingresar valores</button>
+
+    <div id="campos"></div>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="resultado"></div>
+</div>
+
+<script>
+    function crearCampos() {
+        let num = document.getElementById("numResistencias").value;
+        let contenedor = document.getElementById("campos");
+        contenedor.innerHTML = "";
+
+        for (let i = 1; i <= num; i++) {
+            let label = document.createElement("label");
+            label.textContent = "Resistencia " + i + " (Ω):";
+            let input = document.createElement("input");
+            input.type = "number";
+            input.id = "R" + i;
+            input.min = "0";
+            contenedor.appendChild(label);
+            contenedor.appendChild(input);
+        }
+    }
+
+    function calcular() {
+        let tipo = document.getElementById("configuracion").value;
+        let num = document.getElementById("numResistencias").value;
+        let resultado = 0;
+
+        if (tipo === "serie") {
+            for (let i = 1; i <= num; i++) {
+                resultado += Number(document.getElementById("R" + i).value);
+            }
+        } else {
+            let suma = 0;
+            for (let i = 1; i <= num; i++) {
+                let r = Number(document.getElementById("R" + i).value);
+                suma += 1 / r;
+            }
+            resultado = 1 / suma;
+        }
+
+        document.getElementById("resultado").innerHTML =
+            "Resistencia equivalente: " + resultado.toFixed(2) + " Ω";
+    }
+</script>
+
+</body>
+</html>
